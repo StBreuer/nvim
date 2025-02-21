@@ -1,0 +1,8 @@
+*.swp
+*.swo
+.session
+site/
+undo/
+backup/
+swap/
+lazy-lock.json
