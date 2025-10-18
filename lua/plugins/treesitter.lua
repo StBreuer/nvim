@@ -1,53 +1,38 @@
 return {
   "nvim-treesitter/nvim-treesitter",
-  event = { "BufReadPre", "BufNewFile" },
   build = ":TSUpdate",
+  event = { "BufReadPost", "BufNewFile" },
   dependencies = {
-    "windwp/nvim-ts-autotag",
+    "nvim-treesitter/nvim-treesitter-textobjects",
   },
   config = function()
-    -- import nvim-treesitter plugin
-    local treesitter = require("nvim-treesitter.configs")
-
-    -- configure treesitter
-    treesitter.setup({ -- enable syntax highlighting
-      highlight = {
-        enable = true,
-      },
-      -- enable indentation
-      indent = { enable = true },
-      -- enable autotagging (w/ nvim-ts-autotag plugin)
-      -- closed tag automatically
-      autotag = {
-        enable = true,
-      },
-      -- ensure these language parsers are installed
-      ensure_installed = {
+    require("nvim-treesitter.configs").setup({
+      ensure_installed = { "lua",
         "python",
-        "json",
-        "javascript",
-        "typescript",
-        "yaml",
         "html",
-        "css",
-        "markdown",
-        "markdown_inline",
-        "bash",
-        "lua",
-        "vim",
-        "dockerfile",
-        "gitignore",
-        "query",
-        "vimdoc",
-        "c",
-      },
+        "xml",
+        "bash"
+      },                    -- add your languages
+      highlight = { enable = true, additional_vim_regex_highlighting = false },
+      indent = { enable = true },
       incremental_selection = {
         enable = true,
         keymaps = {
-          init_selection = "<C-space>",
-          node_incremental = "<C-space>",
-          scope_incremental = false,
-          node_decremental = "<bs>",
+          init_selection = "gnn",
+          node_incremental = "grn",
+          scope_incremental = "grc",
+          node_decremental = "grm",
+        },
+      },
+      textobjects = {
+        select = {
+          enable = true,
+          keymaps = {
+            ["af"] = "@function.outer",
+            ["if"] = "@function.inner",
+            ["ac"] = "@class.outer",
+            ["ic"] = "@class.inner",
+          },
         },
       },
     })
