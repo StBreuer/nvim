@@ -75,6 +75,7 @@ return {
 						buffer = "[Buffer]",
 						path = "[Path]",
 						crates = "[Crates]",
+						["vim-dadbod-completion"] = "[DB]",
 					})[entry.source.name]
 					return vim_item
 				end,
